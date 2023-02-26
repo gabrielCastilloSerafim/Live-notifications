@@ -61,11 +61,18 @@ struct OrderStatus : Widget {
                                 .font(.title3)
                                 .foregroundColor(.white)
                                 .fixedSize(horizontal: false, vertical: true)
-                            // Subtitle
-                            Text(subMessage(status: context.state.status))
-                                .font(.caption2)
-                                .foregroundColor(.white.opacity(0.7))
-                                .fixedSize(horizontal: false, vertical: true)
+                            // Subtitle + timer
+                            if context.state.status != .ready {
+                                Text("\(subMessage(status: context.state.status))\(timer(status: context.state.status, endTime: context.state.endTime), style: .timer)")
+                                    .font(.caption2)
+                                    .foregroundColor(.white.opacity(0.7))
+                                    .fixedSize(horizontal: false, vertical: true)
+                            } else {
+                                Text("\(subMessage(status: context.state.status))")
+                                    .font(.caption2)
+                                    .foregroundColor(.white.opacity(0.7))
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .offset(y: 13)
@@ -162,8 +169,10 @@ struct OrderStatus : Widget {
             
         case .received:
             return "Empieza pronto"
+            
         case .progress:
             return "En andamiento"
+            
         case .ready:
             return "Servicio finalizado"
         }
@@ -171,15 +180,36 @@ struct OrderStatus : Widget {
     
     // Sub title
     func subMessage(status: Status) -> String {
+        
         switch status {
             
         case .received:
-            return "Dentro de: 30:58 min"
+            return "Dentro de: "
+            
         case .progress:
-            return "Termina en: 29:23 min"
+            return "Termina en: "
+            
         case .ready:
             return "Ya puedes valorar tu servicio!"
         }
     }
+    
+    // Timer string
+    func timer(status: Status, endTime: Date) -> Date {
+        
+        switch status {
+            
+        case .received:
+            return endTime
+            
+        case .progress:
+            return endTime
+            
+        case .ready:
+            return endTime
+        }
+    }
+    
+    
     
 }
