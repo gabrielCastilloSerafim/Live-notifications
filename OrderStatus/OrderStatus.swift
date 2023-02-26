@@ -30,8 +30,9 @@ struct OrderStatus : Widget {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 55, height: 55)
                         
+                        // Primary title
                         Text("Servicio de manitas")
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(.white.opacity(0.9))
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         HStack(spacing: -2) {
@@ -59,7 +60,7 @@ struct OrderStatus : Widget {
                             // Secondary Title
                             Text(message(status: context.state.status))
                                 .font(.title3)
-                                .foregroundColor(.white)
+                                .foregroundColor(.white.opacity(0.9))
                                 .fixedSize(horizontal: false, vertical: true)
                             // Subtitle + timer
                             if context.state.status != .ready {
